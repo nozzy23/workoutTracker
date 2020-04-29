@@ -1,5 +1,4 @@
 const express = require("express");
-const path = require("path");
 const PORT = process.env.PORT || 3001;
 const mongoose = require("mongoose");
 const app = express();
@@ -10,11 +9,7 @@ app.use(express.json());
 
 
 
-app.use(express.static("public"));
-
-
-const databaseUrl = "workout_plan";
-const collections = ["exercises"];
+app.use(express.static('public'));
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useNewUrlParser: true,
@@ -22,13 +17,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
 });
 
 
-const db = mongojs(databaseUrl, collections);
-
-db.on("error", error => {
-  console.log("this one Database Error:", error);
-});
-
-
+//routes
 app.use(require("./routes/route"));
 
 app.listen(PORT, () => {
